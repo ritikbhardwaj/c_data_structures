@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//structure
-typedef struct Node
-{
+typedef struct node{
     int data;
-    struct Node *next;
+    struct node *next;
 }Node;
 
 //wrapper over node
@@ -64,7 +62,7 @@ int dequeue(Queue *q){
         }
         
     }else{
-       return 0;
+       return -1;
     }
 }
 

@@ -7,11 +7,12 @@ typedef struct node
     struct node *next;
 } Node;
 
+//wrapper over the node
 typedef struct LL
 {
     Node *head;
     Node *rear;
-} LL;
+}LL;
 
 //init ll
 void initll(LL *l)
@@ -57,30 +58,50 @@ void printll(LL *l)
     printf("\n");
 }
 
-void swapnode(Node *before, Node *addr1, Node *addr2)
+//swap the address of the two nodes and not just the value
+void swapnode(LL *l,Node *before, Node *addr1, Node *addr2)
 {
     Node *temp = NULL;
     temp = addr2;
     addr1->next = addr2->next;
-    before->next = addr2;
-    addr2->next = addr1;
+    if(before != NULL){
+        addr2->next = addr1;
+        before->next = addr2;
+    }else{
+        addr2->next = addr1;
+        l->head = addr2;
+    }
+    
 }
 
-int main(void)
-{
-    int ll[] = {1, 4, 6, 7, 9, 3, 6};
-    LL l;
-    initll(&l);
-    makell(ll, 7, &l);
-    printll(&l);
+//length of the linke list
+int len(LL *l){
+    int total = 0;
     Node *temp = NULL;
-    temp = l.head;
-    Node *before = NULL;
-    while (temp->data != 9)
-    {
-        before = temp;
+    temp = l->head;
+    while(temp != NULL){
+        total +=1;
         temp = temp->next;
     }
-    swapnode(before, temp, temp->next);
-    printll(&l);
+    return total;
+}
+
+//sort the linked list by swapping the data of nodes and not the actual nodes
+void sort(LL *l){
+    Node *temp = NULL,*temp1 = NULL,*temp2=NULL;
+    for(temp1 = l->head; temp1!=NULL; temp1 = temp1->next){
+        for(temp2 = temp1->next; temp2!=NULL;){
+            if(temp2->data < temp1->data){
+                int a = temp1->data;
+                temp1->data = temp2->data;
+                temp2->data = a;
+            } 
+            temp2 = temp2->next;
+        }
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    return 0;
 }
